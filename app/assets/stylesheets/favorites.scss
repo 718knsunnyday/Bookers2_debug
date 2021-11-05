@@ -3,6 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .heart_red{
-  color:red;
+  color: red;
 }
 
+.heart_red:hover{
+  color: red;
+  text-decoration: none;
+}
+
+.heart_blue:hover{
+  text-decoration: none;
+}
