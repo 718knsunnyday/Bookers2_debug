@@ -18,6 +18,16 @@
         <td><%= book.body %></td>
         <td class="favorite-btn"><%= render 'favorites/like', book: book %></td>
         <td class="comments-count">コメント数:<%= book.book_comments.count %></td>
+        <td id="book-review" data-score="<%= book.rate %>"></td></td>
+          <script>
+            $('#book-review_<%= book.rate %>').raty({
+              readOnly: true,
+              score: function() {
+                return $(this).attr('data-score');
+              },
+              path: '/assets/'
+            });
+          </script>
       </tr>
     <% end %>
   </tbody>

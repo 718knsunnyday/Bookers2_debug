@@ -22,5 +22,7 @@ class Book < ApplicationRecord
         Book.where('title LIKE ?', '%'+content+'%')
       end
 	end
+	
+	validates :rate, numericality: { in:1..5 }
 
 end
