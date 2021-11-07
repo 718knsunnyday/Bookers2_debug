@@ -21,16 +21,20 @@
           <td><%= @book.body %></td>
           <td class="favorite-btn"><%= render 'favorites/like', book: @book %></td>
           <td class="comments-count">コメント数: <%= @book.book_comments.count %></td>
-          <td class="book-review" id="book-review" data-score="<%= @book.rate %>"></td></td>
-          <script>
-            $('#book-review').raty({
-              readOnly: true,
-              score: function() {
-                return $(this).attr('data-score');
-              },
-              path: '/assets/'
-            });
-          </script>
+          <td>
+            <div id="book-review_<%= @book.id %>"></div>
+              <script>
+                $('#book-review_<%= @book.id %>').raty({
+                  size: 20,
+                  starOff:  '<%= asset_path('star-off.png') %>',
+                  starOn : '<%= asset_path('star-on.png') %>',
+                  starHalf: '<%= asset_path('star-half.png') %>',
+                  half: true,
+                  readOnly: true,
+                  score: <%= @book.rate %>,
+                });
+              </script>
+          </td>
           <% if @book.user.id == current_user.id %>
           <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
           <td><%= link_to 'Destroy', book_path(@book), method: :delete, class: "btn btn-sm btn-danger", "data-confirm" => "本当に消しますか？" %></td>
@@ -38,13 +42,12 @@
         </tr>
       </table>
       <table>
-          <%= render 'book_comments/comment', book: @book %>
+        <%= render 'book_comments/comment', book: @book %>
       </table>
-      <%= form_with model: [@book, @book_comment] do |f| %>
-        <%= f.text_area :comment, size: "70x5" %><br>
-        <%= f.submit "送信" %>
-      <% end %>
+        <%= form_with model: [@book, @book_comment] do |f| %>
+          <%= f.text_area :comment, size: "70x5" %><br>
+          <%= f.submit "送信" %>
+        <% end %>
     </div>
   </div>
 </div>
-
